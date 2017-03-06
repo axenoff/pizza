@@ -1,2 +1,15 @@
 <h3>Welcome to Pizzeria!</h3>
 <button class="btn btn-primary btn-large" onclick="something()">Click me!</button>
+<% @products.each do |product| %>
+<p>
+<%= product.title %>
+<p>
+<%= product.description %>
+<p>
+<%= product.price %>
+<p>
+<%= product.size %>
+<p>
+<%= product.path_to_image %>
+</p>
+<% end %>
