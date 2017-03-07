@@ -1,0 +1,42 @@
+<h1>Welcome to Pizzeria!</h1>
+
+
+<!-- <button class="btn btn-primary btn-large" onclick="something()">Click me!</button> -->
+<% @products.each do |product| %>
+<div class="row">
+  <div class="col-md-4">
+  <h1><%= product.title %></h1>
+  <h4><%= product.description %></h4>
+  <h4>Size: <%= product.size %> cm</h4>
+  <% if product.is_spicy? %>
+  <div class="checkbox">
+  <label>
+    <input type="checkbox" value="" checked disabled="">
+    Spicy
+  </label>
+</div>
+<% end %>
+<% if product.is_veg? %>
+  <div class="checkbox">
+  <label>
+    <input type="checkbox" value="" checked disabled="">
+    Vegetarian
+  </label>
+</div>
+<% end %>
+<% if product.is_best_offer? %>
+  <div class="checkbox">
+  <label>
+    <input type="checkbox" value="" checked disabled="">
+    Best offer!
+  </label>
+</div>
+<% end %>
+<h2>Price: <%= product.price %> RUR</h2>
+<button class="btn btn-primary btn-large" onclick="something()">Order!</button>
+
+</div>
+  <div class="col-md-3"><img src=<%= product.path_to_image %> class="img-responsive" alt="Responsive image"></div>
+</div>
+ <% end %>
+

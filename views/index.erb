@@ -1,15 +1,38 @@
-<h3>Welcome to Pizzeria!</h3>
-<button class="btn btn-primary btn-large" onclick="something()">Click me!</button>
-<% @products.each do |product| %>
-<p>
-<%= product.title %>
-<p>
-<%= product.description %>
-<p>
-<%= product.price %>
-<p>
-<%= product.size %>
-<p>
-<%= product.path_to_image %>
-</p>
-<% end %>
+<h1>Welcome to Pizzeria!</h1>
+
+<div class="row">
+
+	<% @products.each do |p| %>
+	<div class="col-md-3">
+	<div>
+		<%= p.title %>
+	</div>
+
+	<div>
+		<img src="<%= p.path_to_image %>" class="img-responsive"alt="Responsive image"/>
+	</div>
+	
+	<div>
+		<%= p.description %>
+	</div>
+
+	<div>
+		Size: <%= p.size %> cm
+	</div>
+
+	<div>
+		Price: <%= p.price %>  rub 	
+	</div>
+
+	<div>
+		<button class="btn btn-sm btn-success" onclick="add_to_cart(<%= p.id %>)" >Add to cart</button>
+	</div>
+ 
+</div>
+
+
+	<% end %>
+
+<!-- <button class="btn btn-primary btn-large" onclick="something()">Click me!</button> -->
+
+
