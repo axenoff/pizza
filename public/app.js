@@ -55,7 +55,7 @@ function cart_get_orders()
 		var value = window.localStorage.getItem(key); //получаем значение
 		if(key.indexOf('product_') == 0)
 		{
-			orders = orders + key + '=' + value + ',';
+			orders = orders + key + '=' + value + ', ';
 		}
 	}
 	return orders;
