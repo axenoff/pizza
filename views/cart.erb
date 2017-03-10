@@ -1,61 +1,52 @@
-<h4>Your cart:</h4>
-<table class="table table-striped">
-<thead>
-<tr>
-		<th>№</th>
-		<th>Title of pizza</th>
-		<th>Price</th>
-		<th>Qty</th>
-		<th>Total</th>
-	</tr>
-</thead>
-<tbody>
-  		<% @i=0 %>
-  		<% @qty = 0 %>
-  		<% @total_sum = 0 %>
-  		<% @res = '' %>
- <% @orders.each do |key, value| %>
- 	<tr>
- 	<% @i+=1 %>
- 	<% @qty=@qty+value %>
-	<% @products.each do |p| %>
-		<% if p.id == key %>
-		<td><%= @i %></td>
-		<td><%= p.title  %></td>
-		<td><%= p.price %></td>
-		<td><%= value %></td>
-		<% @sum = p.price*value %>
-		<td><%= p.price*value %></td>
-		<% @total_sum += @sum.to_i %>
-		<% @res +=p.title+value.to_s %>
-		<% end %>
-	<% end %>
-  <% end %>
-  </tr>
-  <tr>
-  	<td></td>
-  	<td></td>
-  	<td>Total:</td>
-  	<td><%= @qty %></td>
-  	<td><%= @total_sum %></td>
+<h2>Your cart</h2>
 
-
-  </tbody>
-
+<table class="table table-striped"> 
+<thead> 
+	<tr> 
+		<th>Name</th> 
+		<th>Price</th> 
+		<th>Qty</th> 
+	</tr> 
+</thead> 
+<tbody> 
+<% total_price = 0 %>
+<% total_qty = 0 %>
+<% @items.each do |item| %>
+	<tr> 
+		<td><%= item[0].title %></td> 
+		<td><%= item[0].price %></td> 
+		<td><%= item[1] %></td> 
+	</tr> 
+	<% total_price += item[0].price * item[1].to_i %>
+	<% total_qty += item[1].to_i %>
+<% end %> 
+<tr> 
+		<td>Total:</td> 
+		<td><%= total_price %> Rub</td> 
+		<td><%= total_qty %></td> 
+	</tr> 
+</tbody> 
 </table>
-<p>
-	<form action="/order" method="POST" role="form">
-	
-	 <input name="order[order]" type="hidden" value="<%= @res %>" />
 
-    <input name="order[name]" class="form-control" id="exampleInputEmail1" placeholder="Enter your name">
-    <br />
-      <input name="order[phone]" class="form-control" id="exampleInputEmail1" placeholder="Enter your phone">
-    <br />
-  </div>
-  <% @hash %>
-	<textarea name="order[adress]" class="form-control" rows="2" placeholder="Enter delivery adress"></textarea>
-	<br />
-	  <button type="submit" class="btn btn-primary">Order</button>
-	</form>
-</p>
+<form action="/place_order" method="POST" role="form">
+
+<input name="order[order]" type="hidden" value="<%= @orders_input %>" /> <!-- проверить name! -->
+
+<div class="form-group">
+	<label>Name</label>
+	<input name="order[name]" type="text" class="form-control" placeholder="Your name" value="<%= @o.name %>">
+</div>
+
+<div class="form-group">
+	<label>Phone</label>
+	<input name="order[phone]" type="text" class="form-control" placeholder="Your phone" value="<%= @o.phone %>">
+</div>
+
+<div class="form-group">
+	<label>Address</label>
+	<textarea name="order[adress]" type="text" class="form-control" placeholder="Delivery address" value="<%= @o.adress %>"></textarea>
+</div>
+
+<button type="submit" class="btn btn-success btn-lg">Place this order</button>
+
+</form>

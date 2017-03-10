@@ -1,0 +1,61 @@
+<h4>Your cart:</h4>
+<table class="table table-striped">
+<thead>
+<tr>
+		<th>№</th>
+		<th>Title of pizza</th>
+		<th>Price</th>
+		<th>Qty</th>
+		<th>Total</th>
+	</tr>
+</thead>
+<tbody>
+  		<% @i=0 %>
+  		<% @qty = 0 %>
+  		<% @total_sum = 0 %>
+  		<% @res = '' %>
+ <% @orders.each do |key, value| %>
+ 	<tr>
+ 	<% @i+=1 %>
+ 	<% @qty=@qty+value %>
+	<% @products.each do |p| %>
+		<% if p.id == key %>
+		<td><%= @i %></td>
+		<td><%= p.title  %></td>
+		<td><%= p.price %></td>
+		<td><%= value %></td>
+		<% @sum = p.price*value %>
+		<td><%= p.price*value %></td>
+		<% @total_sum += @sum.to_i %>
+		<% @res +=p.title+value.to_s %>
+		<% end %>
+	<% end %>
+  <% end %>
+  </tr>
+  <tr>
+  	<td></td>
+  	<td></td>
+  	<td>Total:</td>
+  	<td><%= @qty %></td>
+  	<td><%= @total_sum %></td>
+
+
+  </tbody>
+
+</table>
+<p>
+	<form action="/order" method="POST" role="form">
+	
+	 <input name="order[order]" type="hidden" value="<%= @res %>" />
+
+    <input name="order[name]" class="form-control" id="exampleInputEmail1" placeholder="Enter your name">
+    <br />
+      <input name="order[phone]" class="form-control" id="exampleInputEmail1" placeholder="Enter your phone">
+    <br />
+  </div>
+  <% @hash %>
+	<textarea name="order[adress]" class="form-control" rows="2" placeholder="Enter delivery adress"></textarea>
+	<br />
+	  <button type="submit" class="btn btn-primary">Order</button>
+	</form>
+</p>
